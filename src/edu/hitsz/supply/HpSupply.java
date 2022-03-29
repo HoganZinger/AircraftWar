@@ -2,6 +2,7 @@ package edu.hitsz.supply;
 
 import edu.hitsz.aircraft.HeroAircraft;
 import edu.hitsz.application.Main;
+import edu.hitsz.basic.AbstractFlyingObject;
 
 public class HpSupply extends AbstractSupply{
     public HpSupply(int locationX, int locationY, int speedX, int speedY) {

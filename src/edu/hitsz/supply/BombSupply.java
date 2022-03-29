@@ -1,8 +1,8 @@
 package edu.hitsz.supply;
 
-import edu.hitsz.basic.FlyingObject;
 import edu.hitsz.application.Main;
 import edu.hitsz.aircraft.HeroAircraft;
+import edu.hitsz.basic.AbstractFlyingObject;
 
 public class BombSupply extends AbstractSupply{
     public BombSupply(int locationX, int locationY, int speedX, int speedY) {
