@@ -1,38 +1,32 @@
-package edu.hitsz.application.menu;
-
-import edu.hitsz.application.Game;
-import edu.hitsz.application.ImageManager;
-import edu.hitsz.application.Status;
+package edu.hitsz.application;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import static edu.hitsz.application.Main.object;
 
 /**
+ * 记录类。
+ * 包含玩家姓名、排名、分数和时间
+ *
  * @author HoganZ
  */
-public class AircraftUI{
-    private JButton easyButton;
+
+public class AircraftUI {
     private JPanel mainPanel;
-
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
-
-    private JComboBox<String> music;
-    private JButton simple;
+    private JButton easy;
+    private JButton normal;
     private JButton difficult;
-    private JTextField musicText;
     private JPanel topPanel;
+    private JPanel buttonPanel;
     private JPanel bottomPanel;
-
-    private Game game;
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
+    private JCheckBox soundEffectCheck;
+    private JLabel gameName;
+    private JComboBox music;
+    private JTextField musicText;
+    private final Game game = Game.getGame();
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Menu");
@@ -43,47 +37,46 @@ public class AircraftUI{
     }
 
     public AircraftUI() {
-        easyButton.addActionListener(e -> {
-            System.out.println("选择了简单模式");
+        easy.addActionListener(e -> {
             try {
                 ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg.jpg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            game.setMusicUsage(music.getSelectedIndex()==0);
             game.setDifficulty(0);
-            Status.menuOver = true;
-            game.setUseMusic(music.getSelectedIndex() == 0);
-            synchronized (Status.class) {
-                Status.class.notifyAll();
+            synchronized(object) {
+                object.notify();
             }
         });
-        simple.addActionListener(e -> {
-            System.out.println("选择了普通模式");
+        normal.addActionListener(e -> {
             try {
                 ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg3.jpg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            game.setMusicUsage(music.getSelectedIndex()==0);
             game.setDifficulty(1);
-            Status.menuOver = true;
-            game.setUseMusic(music.getSelectedIndex() == 0);
-            synchronized (Status.class) {
-                Status.class.notifyAll();
+            synchronized(object) {
+                object.notify();
             }
         });
         difficult.addActionListener(e -> {
-            System.out.println("选择了困难模式");
             try {
                 ImageManager.BACKGROUND_IMAGE = ImageIO.read(new FileInputStream("src/images/bg5.jpg"));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            game.setMusicUsage(music.getSelectedIndex()==0);
             game.setDifficulty(2);
-            Status.menuOver = true;
-            game.setUseMusic(music.getSelectedIndex() == 0);
-            synchronized (Status.class) {
-                Status.class.notifyAll();
+            synchronized(object) {
+                object.notify();
             }
         });
     }
+
+    public JPanel getMainPanel(){
+        return mainPanel;
+    }
+
 }
