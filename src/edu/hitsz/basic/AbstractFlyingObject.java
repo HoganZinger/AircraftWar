@@ -8,10 +8,10 @@ import java.awt.image.BufferedImage;
 
 /**
  * 可飞行对象的父类
- *
- * @author hitsz
+ * 同时也是所有炸弹道具的具体订阅者
+ * @author HoganZ
  */
-public abstract class AbstractFlyingObject {
+public abstract class AbstractFlyingObject implements SubscriberInterface{
 
     //locationX、locationY为图片中心位置坐标
     /**
@@ -163,5 +163,9 @@ public abstract class AbstractFlyingObject {
         isValid = false;
     }
 
+    @Override
+    public void update(){
+        isValid = false;
+    }
 }
 
